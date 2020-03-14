@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main_rfal"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+app:rfal_frame_color="#ffffff"
+app:rfal_frame_alpha="0.7">
+
+<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+    xmlns:rfab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main_rfab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginRight="12dp"
+    android:layout_marginBottom="12dp"
+    rfab:rfab_size="normal"
+    rfab:rfab_drawable="@drawable/ic_menu_planning"
+    rfab:rfab_color_normal="@color/colorAccent"
+    rfab:rfab_color_pressed="@color/colorPrimaryDark"
+    rfab:rfab_shadow_radius="7dp"
+    rfab:rfab_shadow_color="#999999" />
+</com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>

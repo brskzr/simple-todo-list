@@ -1,5 +1,6 @@
 package com.brskzr.todolist
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -16,6 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setUpMenu()
+    }
+
+
+    private fun setUpMenu(){
         val rfaContent = RapidFloatingActionContentLabelList(this)
         rfaContent.setOnRapidFloatingActionContentLabelListListener(object : RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<Int> {
             override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Int>?) {
@@ -32,34 +38,47 @@ class MainActivity : AppCompatActivity() {
 
         var items = mutableListOf<RFACLabelItem<Int>>()
         items.add(RFACLabelItem<Int>()
-                        .setLabel("Github: wangjiegulu")
-                        .setResId(R.drawable.ic_menu_planning)
-                        .setWrapper(0)
-        )
-
-        items.add(RFACLabelItem<Int>()
-            .setLabel("Github: wangjiegulu")
-            .setResId(R.drawable.ic_menu_planning)
+            .setLabel("Do It")
+            .setResId(R.drawable.ic_do_it_immediate)
+            .setLabelSizeSp(16)
+            .setLabelColor(Color.WHITE)
+            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_green))
             .setWrapper(0)
         )
 
         items.add(RFACLabelItem<Int>()
-            .setLabel("Github: wangjiegulu")
-            .setResId(R.drawable.ic_menu_planning)
-            .setWrapper(0)
+            .setLabel("Plan It")
+            .setResId(R.drawable.ic_plan_it)
+            .setLabelSizeSp(16)
+            .setLabelColor(Color.WHITE)
+            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_blue))
+            .setWrapper(1)
         )
 
         items.add(RFACLabelItem<Int>()
-            .setLabel("Github: wangjiegulu")
-            .setResId(R.drawable.ic_menu_planning)
-            .setWrapper(0)
+            .setLabel("Delegate It")
+            .setResId(R.drawable.ic_delegate_it)
+            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_yellow))
+            .setLabelSizeSp(16)
+            .setLabelColor(Color.WHITE)
+            .setWrapper(2)
+        )
+
+        items.add(RFACLabelItem<Int>()
+            .setLabel("Dont Care")
+            .setResId(R.drawable.ic_dont_do_it)
+            .setLabelColor(R.color.colorLabelRed)
+            .setLabelSizeSp(16)
+            .setLabelColor(Color.WHITE)
+            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_red))
+            .setWrapper(3)
         )
 
         rfaContent.setItems(items.toList())
         rfabHelper = RapidFloatingActionHelper(this,
             activity_main_rfal ,
             activity_main_rfab,
-                rfaContent
+            rfaContent
         ).build()
     }
 }

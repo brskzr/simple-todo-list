@@ -8,16 +8,140 @@
 
     <include layout="@layout/toolbar_main"></include>
 
+
     <GridLayout
+        android:id="@+id/mainGrid"
         android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="64dp"
+        android:rowCount="2"
+        android:columnCount="2"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_marginBottom="2dp"
+        android:layout_rowWeight="1"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin=".5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:padding="1dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do it immediate"
+                android:background="#00bfa5"
+                android:textColor="@android:color/white"></TextView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- COLUMN 2  -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_marginBottom="2dp"
+        android:layout_rowWeight="1"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin=".5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:padding="1dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do it immediate"
+                android:background="#304ffe"
+                android:textColor="@android:color/white"></TextView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 
+    <!-- ROW 2  -->
+    <!-- COLUMN 1  -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_marginBottom="2dp"
+        android:layout_rowWeight="1"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin=".5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:padding="1dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do it immediate"
+                android:background="#ff6d00"
+                android:textColor="@android:color/white"></TextView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- COLUMN 2  -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_columnWeight="1"
+        android:layout_marginBottom="2dp"
+        android:layout_rowWeight="1"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp">
+        <LinearLayout
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin=".5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:padding="1dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Do it immediate"
+                android:background="#dd2c00"
+                android:textColor="@android:color/white"></TextView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
     </GridLayout>
-
 
     <include layout="@layout/floating_menu"></include>
 

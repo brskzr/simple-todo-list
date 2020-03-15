@@ -1,9 +1,11 @@
 package com.brskzr.todolist
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.brskzr.todolist.ui.SaveReminderActivity
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
@@ -28,11 +30,17 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "clicked label: " + position, Toast.LENGTH_SHORT).show();
                 rfabHelper.toggleContent();
 
+                val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
+                startActivity(intent)
             }
 
             override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Int>?) {
                 Toast.makeText(this@MainActivity, "clicked label: " + position, Toast.LENGTH_SHORT).show();
                 rfabHelper.toggleContent();
+
+                val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
+                intent.putExtra("toolbar_color", item?.labelColor)
+                startActivity(intent)
             }
         })
 

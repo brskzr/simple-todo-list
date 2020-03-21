@@ -11,8 +11,8 @@
 
     <GridLayout
         android:id="@+id/mainGrid"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="72dp"
         android:rowCount="2"
         android:columnCount="2"
         android:alignmentMode="alignMargins"
@@ -142,6 +142,9 @@
     </androidx.cardview.widget.CardView>
     </GridLayout>
 
-    <include layout="@layout/floating_menu"></include>
+    <include layout="@layout/floating_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"></include>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout android:orientation="vertical"
+        android:id="@+id/cv_datepicker_container"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp">
+
+        <LinearLayout
+            android:clickable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:weightSum="7">
+
+            <ImageView
+                android:clickable="false"
+                android:id="@+id/imgCalenderIcon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_weight="1"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_calendar"
+                ></ImageView>
+
+            <TextView
+                android:clickable="false"
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(dd.mm.yyyy)"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_weight="3"
+                android:gravity="right"
+                >
+            </TextView>
+
+            <TextView
+                android:clickable="false"
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(hh:mm)"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_weight="2"
+                android:gravity="right">
+            </TextView>
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray"></View>
+
+    </LinearLayout>
+
+</merge>

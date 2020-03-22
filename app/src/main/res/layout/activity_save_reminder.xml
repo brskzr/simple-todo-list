@@ -87,6 +87,7 @@
                     android:layout_weight="2"></TextView>
 
                 <Switch
+                    android:id="@+id/swHasReminder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
@@ -97,11 +98,59 @@
 
 
             <com.brskzr.todolist.components.DateTimePicker
+                android:id="@+id/dtReminderDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </com.brskzr.todolist.components.DateTimePicker>
 
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Checklist"
+                android:gravity="bottom"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="10"
+                android:layout_marginLeft="8dp">
+
+                <EditText
+                    android:id="@+id/etItemTagName"
+                    android:maxLines="8"
+                    android:textSize="14sp"
+                    android:maxLength="30"
+                    android:layout_weight="8"
+                    android:layout_width="0dp"
+                    android:hint="bir şeyler yaz.."
+                    android:layout_height="wrap_content"></EditText>
+
+                <ImageView
+                    android:id="@+id/imgAddChecklistItem"
+                    android:layout_weight="1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_add"
+                    android:layout_gravity="center"
+                    ></ImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvChecklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
         </LinearLayout>
-
-
 </LinearLayout>

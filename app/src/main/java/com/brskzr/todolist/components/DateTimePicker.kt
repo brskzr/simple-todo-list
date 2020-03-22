@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.brskzr.todolist.R
+import kotlinx.android.synthetic.main.activity_save_reminder.*
 import kotlinx.android.synthetic.main.cv_datepicker.view.*
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -34,8 +35,9 @@ class DateTimePicker @JvmOverloads constructor(
     private val dateFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     private val timeFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
-    val selectedDate: LocalDateTime
-        get() = dateTime
+    val selectedDate: Date
+        get() =  Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant())
+
 
 
     init {

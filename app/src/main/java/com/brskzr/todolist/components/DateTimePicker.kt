@@ -16,6 +16,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.brskzr.todolist.R
 import kotlinx.android.synthetic.main.cv_datepicker.view.*
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -27,8 +30,13 @@ class DateTimePicker @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyle, defStyleRes), OnPickHandler {
 
-    private val timePicker: TimePickerFragment? = null
-    private val datePicker: DatePickerFragment? = null
+    private var dateTime: LocalDateTime = LocalDateTime.now()
+    private val dateFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    private val timeFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+    val selectedDate: LocalDateTime
+        get() = dateTime
+
 
     init {
         initViews()
@@ -38,111 +46,83 @@ class DateTimePicker @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.cv_datepicker, this, true)
         this.orientation = VERTICAL
         this.isClickable = true
-        cv_datepicker_container.setOnClickListener {
-            Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show()
-            openDateDialog()  }
+        cv_datepicker_container.setOnClickListener { openDateDialog()  }
+        setDateTime()
     }
 
-    override fun onPick(sender: DialogFragment, selected: String) {
-        when(sender) {
-            is DatePickerFragment -> {
-                tvDate.setText(selected)
-                openTimeDialog()
-            }
-            is TimePickerFragment -> {
-                tvTime.setText(selected)
-            }
+    private fun setDateTime() {
+        tvTime.setText(dateTime.format(timeFormatter))
+        tvDate.setText(dateTime.format(dateFormatter))
+    }
+
+    override fun onPick(sender: DialogFragment, localDateTime: LocalDateTime) {
+        this.dateTime = localDateTime
+        setDateTime()
+        if(sender is DatePickerFragment){
+            openTimeDialog()
         }
     }
 
     private fun openDateDialog(){
-        (context as AppCompatActivity)?.let {
-            DatePickerFragment(this).open(it.supportFragmentManager)
+        (context as? AppCompatActivity)?.let {
+            DatePickerFragment(this).open(it.supportFragmentManager, dateTime)
         }
     }
 
     private fun openTimeDialog() {
-        (context as AppCompatActivity)?.let {
-            TimePickerFragment(this).open(it.supportFragmentManager,0, 0)
+        (context as? AppCompatActivity)?.let {
+            TimePickerFragment(this).open(it.supportFragmentManager, dateTime)
         }
     }
 }
 
 interface OnPickHandler{
-    fun onPick(sender: DialogFragment, selected:String)
-}
-
-fun Int.padding(length: Int): String{
-    return this.toString().padStart(length, '0')
+    fun onPick(sender: DialogFragment, localDateTime: LocalDateTime)
 }
 
 class DatePickerFragment(val handler: OnPickHandler) : DialogFragment(), DatePickerDialog.OnDateSetListener {
-    private var year : Int = 0
-    private var month: Int = 0
-    private var day = 0
-    private val calendar
-        get() = Calendar.getInstance()
+    private lateinit var localDateTime: LocalDateTime
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val picker = DatePickerDialog(activity!!, this, year, month, day)
-        picker.datePicker.minDate = calendar.timeInMillis
+        val picker = DatePickerDialog(activity!!, this, localDateTime.year, localDateTime.month.value, localDateTime.dayOfMonth)
+        picker.datePicker.minDate = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
         return picker
     }
 
     override fun onDateSet(view: DatePicker, y: Int, m: Int, d: Int) {
-        val yyyy = y.padding(4)
-        val mm = m.padding(2)
-        val dd = d.padding(2)
-        val date = "$dd.$mm.$yyyy"
-
-        year = y
-        month = m
-        year = y
-
-        handler.onPick(this, date)
+        val selected = LocalDateTime.of(y, m, d,
+            localDateTime.hour,
+            localDateTime.minute)
+        handler.onPick(this, selected)
     }
 
-    fun open(fragmentManager: FragmentManager, day: Int = 0, month: Int = 0, year: Int = 0) {
-        this.year = year
-        this.month = month
-        this.day = day
-
-        if(day == 0 || month == 0 || year == 0){
-            this.year = calendar.get(Calendar.YEAR)
-            this.month = calendar.get(Calendar.MONTH)
-            this.day = calendar.get(Calendar.DAY_OF_MONTH)
-        }
-
+    fun open(fragmentManager: FragmentManager, localDateTime: LocalDateTime) {
+        this.localDateTime = localDateTime
         show(fragmentManager, "datepicker")
     }
 }
 
 class TimePickerFragment(val handler: OnPickHandler) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
-    private var hour: Int = 0
-    private var minute: Int = 0
-    private val calendar
-        get() = Calendar.getInstance()
+
+    private lateinit var localDateTime: LocalDateTime
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return TimePickerDialog(activity, this, hour, minute, true)
+        return TimePickerDialog(activity, this, localDateTime.hour, localDateTime.minute, true)
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, min: Int) {
-        val selectedTime = "${hourOfDay.padding(2)}:${minute.padding(2)}"
-        hour = hourOfDay
-        minute = min
 
-        handler.onPick(this, selectedTime)
+        val selected = LocalDateTime.of(localDateTime.year,
+                                        localDateTime.month,
+                                        localDateTime.dayOfMonth,
+                                        hourOfDay,
+                                        min)
+
+        handler.onPick(this, selected)
     }
 
-    fun open(fragmentManager: FragmentManager, hour:Int, minute: Int) {
-        this.hour = calendar.get(Calendar.HOUR_OF_DAY)
-        this.minute = calendar.get(Calendar.MINUTE)
-
-        if(hour > this.hour){
-            this.hour = hour
-        }
-
+    fun open(fragmentManager: FragmentManager, localDateTime: LocalDateTime) {
+        this.localDateTime = localDateTime
         show(fragmentManager, "timepicker")
     }
 }

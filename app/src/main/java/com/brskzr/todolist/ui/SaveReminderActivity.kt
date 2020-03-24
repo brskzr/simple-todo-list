@@ -18,12 +18,14 @@ import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.models.TodoItemType
 import com.brskzr.todolist.viewmodels.SaveReminderViewModel
 import kotlinx.android.synthetic.main.activity_save_reminder.*
-
+import android.text.InputFilter
+import android.text.InputType
 
 
 class SaveReminderActivity : AppCompatActivity() {
     private lateinit var checklistAdapter : ChecklistAdapter
     private lateinit var viewModel:SaveReminderViewModel
+    private var mode = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,46 @@ class SaveReminderActivity : AppCompatActivity() {
                 Log.i("DATAGELDI", i.tag)
             }
         })*/
+
+        mode = intent.getIntExtra("selected", 0)
+        when(mode) {
+            0 -> {
+                toolbar_savereminder.background = getDrawable(R.color.colorLabelGreen)
+                toolbar_savereminder_text.setText(R.string.do_it_immediate)
+            }
+            1 -> {
+                toolbar_savereminder.background = getDrawable(R.color.colorLabelBlue)
+                toolbar_savereminder_text.setText(R.string.plan_for_later)
+            }
+            2 -> {
+                toolbar_savereminder.background = getDrawable(R.color.colorLabelYellow)
+                toolbar_savereminder_text.setText(R.string.pass_someone)
+                container_reminder.visibility = View.GONE
+            }
+            3 -> {
+                toolbar_savereminder.background = getDrawable(R.color.colorLabelRed)
+                toolbar_savereminder_text.setText(R.string.note_for_later)
+                lbl_checklist.visibility = View.GONE
+                et_checklist.visibility = View.GONE
+                container_checklist.visibility = View.GONE
+                container_reminder.visibility = View.GONE
+                et_tagname.minLines = 3
+                et_tagname.maxLines = 5
+                et_tagname.inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                et_tagname.setFilters(
+                    arrayOf<InputFilter>(
+                        InputFilter.LengthFilter(
+                            250
+                        )
+                    )
+                )
+
+            }
+            else -> {
+
+            }
+        }
+
 
         dtReminderDate.visibility = if (swHasReminder.isActivated) View.VISIBLE else View.GONE
         btn_close_task.setOnClickListener { finish() }

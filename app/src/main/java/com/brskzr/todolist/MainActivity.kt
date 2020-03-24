@@ -22,31 +22,36 @@ class MainActivity : AppCompatActivity() {
         setUpMenu()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            100 -> {
+                //Todo refresh
+            }
+        }
+    }
+
+    private fun openSaveReminder(position:Int) {
+        rfabHelper.toggleContent();
+        val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
+        intent.putExtra("selected", position)
+        startActivityForResult(intent, 100)
+    }
 
     private fun setUpMenu(){
         val rfaContent = RapidFloatingActionContentLabelList(this)
         rfaContent.setOnRapidFloatingActionContentLabelListListener(object : RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener<Int> {
             override fun onRFACItemIconClick(position: Int, item: RFACLabelItem<Int>?) {
-                Toast.makeText(this@MainActivity, "clicked label: " + position, Toast.LENGTH_SHORT).show();
-                rfabHelper.toggleContent();
-
-                val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
-                startActivity(intent)
+                openSaveReminder(position)
             }
-
             override fun onRFACItemLabelClick(position: Int, item: RFACLabelItem<Int>?) {
-                Toast.makeText(this@MainActivity, "clicked label: " + position, Toast.LENGTH_SHORT).show();
-                rfabHelper.toggleContent();
-
-                val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
-                intent.putExtra("toolbar_color", item?.labelColor)
-                startActivity(intent)
+                openSaveReminder(position)
             }
         })
 
         var items = mutableListOf<RFACLabelItem<Int>>()
         items.add(RFACLabelItem<Int>()
-            .setLabel("Do It")
+            .setLabel(resources.getString(R.string.do_it_immediate))
             .setResId(R.drawable.ic_do_it_immediate)
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         items.add(RFACLabelItem<Int>()
-            .setLabel("Plan It")
+            .setLabel(resources.getString(R.string.plan_for_later))
             .setResId(R.drawable.ic_plan_it)
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
@@ -64,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         items.add(RFACLabelItem<Int>()
-            .setLabel("Delegate It")
+            .setLabel(resources.getString(R.string.pass_someone))
             .setResId(R.drawable.ic_delegate_it)
             .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_yellow))
             .setLabelSizeSp(16)
@@ -73,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         items.add(RFACLabelItem<Int>()
-            .setLabel("Dont Care")
+            .setLabel(resources.getString(R.string.note_for_later))
             .setResId(R.drawable.ic_dont_do_it)
             .setLabelColor(R.color.colorLabelRed)
             .setLabelSizeSp(16)

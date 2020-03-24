@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">todolist</string>
     <string name="hint_subject">Konu</string>
-
+    <string name="do_it_immediate">Do It Immediate</string>
+    <string name="plan_for_later">Plan For Later</string>
+    <string name="pass_someone">Pass Someone</string>
+    <string name="note_for_later">Note For Later</string>
 </resources>

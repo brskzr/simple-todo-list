@@ -41,7 +41,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Do it immediate"
+                android:text="@string/do_it_immediate"
                 android:background="#00bfa5"
                 android:textColor="@android:color/white"></TextView>
         </LinearLayout>
@@ -70,7 +70,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Do it immediate"
+                android:text="@string/plan_for_later"
                 android:background="#304ffe"
                 android:textColor="@android:color/white"></TextView>
         </LinearLayout>
@@ -104,7 +104,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Do it immediate"
+                android:text="@string/pass_someone"
                 android:background="#ff6d00"
                 android:textColor="@android:color/white"></TextView>
         </LinearLayout>
@@ -134,7 +134,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Do it immediate"
+                android:text="@string/note_for_later"
                 android:background="#dd2c00"
                 android:textColor="@android:color/white"></TextView>
         </LinearLayout>

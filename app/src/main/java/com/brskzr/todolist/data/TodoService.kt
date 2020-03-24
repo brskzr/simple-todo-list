@@ -10,8 +10,8 @@ interface TodoService {
     @Query("SELECT * FROM todos")
     suspend fun getAll(): List<TodoItemDataModel>
 
-    @Query("SELECT * FROM todos")
-    suspend fun getById(id: Int): TodoItemDataModel
+    @Query("SELECT * FROM todos WHERE Id = :Id")
+    suspend fun getById(Id: Int): TodoItemDataModel
 
     @Query("SELECT * FROM todos WHERE type = :type")
     suspend fun getByType(type: TodoItemType): List<TodoItemDataModel>

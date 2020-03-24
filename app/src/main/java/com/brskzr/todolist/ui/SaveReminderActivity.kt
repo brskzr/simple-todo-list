@@ -47,20 +47,20 @@ class SaveReminderActivity : AppCompatActivity() {
         when(mode) {
             0 -> {
                 toolbar_savereminder.background = getDrawable(R.color.colorLabelGreen)
-                toolbar_savereminder_text.setText(R.string.do_it_immediate)
+                toolbar_savereminder_header.setText(R.string.do_it_immediate)
             }
             1 -> {
                 toolbar_savereminder.background = getDrawable(R.color.colorLabelBlue)
-                toolbar_savereminder_text.setText(R.string.plan_for_later)
+                toolbar_savereminder_header.setText(R.string.plan_for_later)
             }
             2 -> {
                 toolbar_savereminder.background = getDrawable(R.color.colorLabelYellow)
-                toolbar_savereminder_text.setText(R.string.pass_someone)
+                toolbar_savereminder_header.setText(R.string.pass_someone)
                 container_reminder.visibility = View.GONE
             }
             3 -> {
                 toolbar_savereminder.background = getDrawable(R.color.colorLabelRed)
-                toolbar_savereminder_text.setText(R.string.note_for_later)
+                toolbar_savereminder_header.setText(R.string.note_for_later)
                 lbl_checklist.visibility = View.GONE
                 et_checklist.visibility = View.GONE
                 container_checklist.visibility = View.GONE

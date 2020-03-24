@@ -10,7 +10,7 @@ import com.brskzr.todolist.converters.ListConverter
 import com.brskzr.todolist.converters.TodoItemTypeConverter
 import com.brskzr.todolist.models.TodoItemDataModel
 
-@Database(entities = arrayOf(TodoItemDataModel::class), version = 1)
+@Database(entities = arrayOf(TodoItemDataModel::class), version = 1, exportSchema = false)
 @TypeConverters(DateTypeConverter::class, TodoItemTypeConverter::class, ListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getTodoService(): TodoService

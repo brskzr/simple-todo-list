@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar_savetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLabelGreen"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/btn_tb_cancel"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:clickable="true"
+            android:src="@drawable/ic_x_mark"></ImageView>
+
+        <TextView
+            android:id="@+id/tv_tb_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Task"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+        <ImageView
+            android:id="@+id/btn_tb_approve"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/ic_approval"></ImageView>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray"></View>
+</LinearLayout>

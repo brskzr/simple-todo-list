@@ -5,4 +5,7 @@
     <string name="plan_for_later">Plan For Later</string>
     <string name="pass_someone">Pass Someone</string>
     <string name="note_for_later">Note For Later</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

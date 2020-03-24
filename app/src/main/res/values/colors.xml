@@ -7,4 +7,5 @@
     <color name="colorLabelBlue">#00b8d4</color>
     <color name="colorLabelYellow">#ffab00</color>
     <color name="colorLabelRed">#dd2c00</color>
+    <color name="colorLayout">#fafafa</color>
 </resources>

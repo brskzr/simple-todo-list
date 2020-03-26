@@ -5,7 +5,9 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.ui.SaveReminderActivity
+import com.brskzr.todolist.ui.SaveTaskHostActivity
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
@@ -33,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSaveReminder(position:Int) {
         rfabHelper.toggleContent();
-        val intent = Intent(this@MainActivity, SaveReminderActivity::class.java)
-        intent.putExtra("selected", position)
+        val intent = Intent(this@MainActivity, SaveTaskHostActivity::class.java)
+        intent.putExtra(Constants.TASK_TYPE_KEY, position)
         startActivityForResult(intent, 100)
     }
 

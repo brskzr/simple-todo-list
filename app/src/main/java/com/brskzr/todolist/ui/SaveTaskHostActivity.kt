@@ -35,7 +35,7 @@ class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
         toolbar_savetask.background = resources.getDrawable(colorId, theme)
         tv_tb_header.setText(resources.getString(stringId))
         btn_tb_cancel.setOnClickListener { this.onBackPressed() }
-        btn_save_task.setOnClickListener { this.eventHandler.onSave() }
+        btn_tb_approve.setOnClickListener { this.eventHandler.onSave() }
     }
 
     private fun prepareScreen(taskType: Int): Fragment = when(taskType) {

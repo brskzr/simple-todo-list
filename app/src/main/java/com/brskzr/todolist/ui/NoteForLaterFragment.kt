@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.brskzr.todolist.R
 
 
-class NoteForLaterFragment : Fragment() {
+class NoteForLaterFragment : Fragment() ,SaveTaskHostActivity.ISaveTaskEventHandler{
 
     private lateinit var saveTaskHandler: IDataHandler
 
@@ -25,5 +25,9 @@ class NoteForLaterFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         saveTaskHandler = context as IDataHandler
+    }
+
+    override fun onSave() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

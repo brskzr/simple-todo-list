@@ -7,9 +7,7 @@
         android:id="@+id/cv_datepicker_container"
         android:clickable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:clickable="false"
@@ -22,8 +20,8 @@
             <ImageView
                 android:clickable="false"
                 android:id="@+id/imgCalenderIcon"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_weight="1"
                 android:layout_gravity="left"
                 android:src="@drawable/ic_calendar"
@@ -35,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(dd.mm.yyyy)"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_weight="3"
                 android:gravity="right"
@@ -48,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="(hh:mm)"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_weight="2"
                 android:gravity="right">

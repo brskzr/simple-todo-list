@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.brskzr.todolist.R
 
 
-class NoteForLaterFragment : Fragment() ,SaveTaskHostActivity.ISaveTaskEventHandler{
+class NoteForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler{
 
     private lateinit var saveTaskHandler: IDataHandler
 

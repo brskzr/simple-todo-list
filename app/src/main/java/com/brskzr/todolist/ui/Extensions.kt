@@ -33,3 +33,7 @@ fun Fragment.toast(message: String) {
 fun TextInputEditText.isEmpty(): Boolean {
     return this.text.toString().isEmpty()
 }
+
+fun EditText.isEmpty(): Boolean {
+    return this.text.toString().isEmpty()
+}

@@ -10,10 +10,7 @@ import android.view.ViewGroup
 
 import com.brskzr.todolist.R
 
-/**
- * A simple [Fragment] subclass.
- */
-class PassSomeoneFragment : Fragment() {
+class PassSomeoneFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler{
 
     private lateinit var saveTaskHandler: IDataHandler
 
@@ -28,5 +25,9 @@ class PassSomeoneFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         saveTaskHandler = context as IDataHandler
+    }
+
+    override fun onSave() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import com.brskzr.todolist.R
 
 
-class PlanForLaterFragment : Fragment() {
+class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler {
 
     private lateinit var saveTaskHandler: IDataHandler
 
@@ -25,5 +25,10 @@ class PlanForLaterFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         saveTaskHandler = context as IDataHandler
+    }
+
+    override fun onSave() {
+
+
     }
 }

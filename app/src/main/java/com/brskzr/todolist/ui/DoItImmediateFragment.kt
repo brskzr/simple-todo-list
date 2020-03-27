@@ -84,9 +84,10 @@ class DoItImmediateFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHan
             0,
             true,
             dateTime.toDate(),
-            TodoItemType.DO_IT_NOW,
+            TodoItemType.DO_IT_IMMEDIATE,
             et_tagname.text.toString(),
-            emptyList()
+            emptyList(),
+            ""
         )
 
         dataHandler.onDataCreate(model)

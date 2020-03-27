@@ -3,14 +3,17 @@ package com.brskzr.todolist.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.brskzr.todolist.R
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.models.TodoItemDataModel
+import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
 import kotlinx.android.synthetic.main.activity_save_reminder.*
 import kotlinx.android.synthetic.main.toolbar_savetask.*
 
 class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
 
+    private lateinit var viewModel:SaveTaskHostViewModel
     private lateinit var eventHandler : ISaveTaskEventHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +23,12 @@ class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
     }
 
     override fun onDataCreate(model: TodoItemDataModel){
-        TODO("save task to db")
+        viewModel.addNewItem(model, { finish() })
     }
 
     private fun initViews(){
-        //TODO view model
+        viewModel = ViewModelProvider(this).get(SaveTaskHostViewModel::class.java)
+
         val taskType = getIntFromIntent(Constants.TASK_TYPE_KEY)
         val fragment = prepareScreen(taskType)
         eventHandler = fragment as ISaveTaskEventHandler

@@ -4,9 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.brskzr.todolist.models.Constants
-import com.brskzr.todolist.ui.SaveReminderActivity
 import com.brskzr.todolist.ui.SaveTaskHostActivity
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem

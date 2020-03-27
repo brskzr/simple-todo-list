@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar_main"></include>
-
 
     <GridLayout
         android:id="@+id/mainGrid"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="72dp"
         android:rowCount="2"
         android:columnCount="2"

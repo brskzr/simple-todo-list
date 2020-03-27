@@ -26,7 +26,10 @@ class TodoItemDataModel(
 
     @ColumnInfo(name = "checklist")
     @TypeConverters(ListConverter::class)
-    var checkList:List<ChecklistItem>
+    var checkList:List<ChecklistItem>,
+
+    @ColumnInfo(name = "someone")
+    var someone:String
 )
 
 

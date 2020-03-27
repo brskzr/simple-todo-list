@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PassSomeoneFragment">
+    android:orientation="vertical"
+    android:background="@color/colorLayout">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="Create task, pass to someone"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="12dp"
+        ></TextView>
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="#FFFFFFFF"
+        app:hintAnimationEnabled="true"
+        android:hint="Who is to pass?"
+        android:layout_margin="10dp"
+        android:padding="0dp">
+        <EditText
+            android:id="@+id/et_someone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="1"
+            android:maxLines="1"
+            android:minLines="1"
+            android:textSize="16sp"
+            android:maxLength="30"
+            android:scrollbars="vertical"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="#FFFFFFFF"
+        app:hintAnimationEnabled="true"
+        android:hint="What is the subject?"
+        android:layout_margin="10dp"
+        android:padding="0dp">
+        <EditText
+            android:id="@+id/et_tagname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:maxLines="5"
+            android:minLines="3"
+            android:textSize="16sp"
+            android:maxLength="150"
+            android:scrollbars="vertical"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.brskzr.todolist.components.DateTimePicker
+        android:id="@+id/dtp_plandate"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+    </com.brskzr.todolist.components.DateTimePicker>
+
+</LinearLayout>

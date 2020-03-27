@@ -10,10 +10,10 @@ class TodoItemTypeConverter{
 
     @TypeConverter
     fun toTodoItemType(value: Int): TodoItemType = when(value){
-        1 -> TodoItemType.DO_IT_NOW
-        2 -> TodoItemType.PLAN_IT
-        3 -> TodoItemType.DELEAGATE
-        4 -> TodoItemType.NOT_IMPORTANT
+        1 -> TodoItemType.DO_IT_IMMEDIATE
+        2 -> TodoItemType.PLAN_FOR_LATER
+        3 -> TodoItemType.PASS_SOMEONE
+        4 -> TodoItemType.NOTE_FOR_LATER
         else -> TodoItemType.NONE
     }
 

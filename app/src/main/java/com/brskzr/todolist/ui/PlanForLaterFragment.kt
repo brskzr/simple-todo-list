@@ -13,13 +13,15 @@ import com.brskzr.todolist.R
 import com.brskzr.todolist.adapters.CheckListAdapterListener
 import com.brskzr.todolist.adapters.ChecklistAdapter
 import com.brskzr.todolist.models.ChecklistItem
+import com.brskzr.todolist.models.TodoItemDataModel
+import com.brskzr.todolist.models.TodoItemType
 import kotlinx.android.synthetic.main.fragment_plan_for_later.*
 import java.time.LocalDateTime
 
 
 class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler {
 
-    private lateinit var saveTaskHandler: IDataHandler
+    private lateinit var dataHandler: IDataHandler
     private lateinit var checklistAdapter : ChecklistAdapter
 
 
@@ -32,7 +34,7 @@ class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHand
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        saveTaskHandler = context as IDataHandler
+        dataHandler = context as IDataHandler
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,8 +45,17 @@ class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHand
     override fun onSave() {
         if(!validate()) return
 
+        val model = TodoItemDataModel(
+            0,
+            true,
+            dtp_plandate.selectedDate,
+            TodoItemType.PLAN_FOR_LATER,
+            et_tagname.text.toString(),
+            checklistAdapter.items,
+            ""
+        )
 
-
+        dataHandler.onDataCreate(model)
     }
 
     private fun initViews(){

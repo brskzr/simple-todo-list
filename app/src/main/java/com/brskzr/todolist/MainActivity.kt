@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brskzr.todolist.adapters.ChecklistAdapter
 import com.brskzr.todolist.adapters.NoteForLaterAdapter
+import com.brskzr.todolist.adapters.PassSomeoneAdapter
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.ui.SaveTaskHostActivity
 import com.brskzr.todolist.viewmodels.MainViewModel
@@ -39,6 +40,14 @@ class MainActivity : AppCompatActivity() {
                 rv_note_for_later.setHasFixedSize(true)
             }
         })
+
+        viewModel.listPassSomone.observe(this, Observer {
+            if(it.any()){
+                rv_pass_someone.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                rv_pass_someone.adapter = PassSomeoneAdapter(it)
+                rv_pass_someone.setHasFixedSize(true)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,12 +59,8 @@ class MainActivity : AppCompatActivity() {
             1 -> {
 
             }
-            2 -> {
-
-            }
-            3 -> {
-                viewModel.getNotes()
-            }
+            2 -> viewModel.getPassSomeones()
+            3 -> viewModel.getNotes()
         }
     }
 

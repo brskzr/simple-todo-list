@@ -18,11 +18,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return notes
         }
 
+    private var passSomeones : MutableLiveData<List<TodoItemDataModel>> = MutableLiveData<List<TodoItemDataModel>>(emptyList())
+    val listPassSomone:LiveData<List<TodoItemDataModel>>
+        get() {
+            getPassSomeones()
+            return passSomeones
+        }
+
     fun getNotes() {
         viewModelScope.launch {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.NOTE_FOR_LATER)
             notes.postValue(items)
+        }
+    }
+
+    fun getPassSomeones() {
+        viewModelScope.launch {
+            val service = AppDatabase.instance(getApplication()).getTodoService()
+            val items = service.getByType(TodoItemType.PASS_SOMEONE)
+            passSomeones.postValue(items)
         }
     }
 }

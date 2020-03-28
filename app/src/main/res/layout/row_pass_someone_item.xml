@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="2dp">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@drawable/ic_alarm_on_black_24dp"></ImageView>
+
+        <TextView
+            android:id="@+id/tv_reminde_at"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="top|left"
+            android:layout_marginLeft="4dp"
+            android:textSize="10sp"
+            android:text="01.01.0001 01.01"></TextView>
+
+        <TextView
+            android:id="@+id/tv_someone"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="top|left"
+            android:textSize="10sp"
+            android:layout_marginLeft="6dp"
+            android:text="Cengizhan Aksu"></TextView>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_task_detail"
+        android:textSize="14sp"
+        android:padding="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Murat Özdemir Lorem ipsum lorem ipsum"></TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray"></View>
+</LinearLayout>

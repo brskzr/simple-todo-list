@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_note_date"
+        android:padding="1dp"
+        android:layout_marginLeft="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:textSize="11sp"
+        android:textColor="@android:color/darker_gray"
+        android:text="10.02.2019 10:11"></TextView>
+    <TextView
+        android:id="@+id/tv_note_detail"
+        android:padding="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginLeft="6dp"
+        android:text="Ankaradan geleceklere yeasdas asd asdr  asdas asd asd asd asd asd asd asayırtalacak"></TextView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@android:color/darker_gray"></View>
+</LinearLayout>

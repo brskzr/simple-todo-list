@@ -135,6 +135,11 @@
                 android:text="@string/note_for_later"
                 android:background="#dd2c00"
                 android:textColor="@android:color/white"></TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_note_for_later"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

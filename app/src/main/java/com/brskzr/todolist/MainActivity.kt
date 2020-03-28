@@ -4,29 +4,57 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.brskzr.todolist.adapters.ChecklistAdapter
+import com.brskzr.todolist.adapters.NoteForLaterAdapter
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.ui.SaveTaskHostActivity
+import com.brskzr.todolist.viewmodels.MainViewModel
+import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.floating_menu.*
+import kotlinx.android.synthetic.main.fragment_plan_for_later.*
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var rfabHelper: RapidFloatingActionHelper
+    private lateinit var viewModel:MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setUpMenu()
+
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.listOfNote.observe(this, Observer {
+            if(it.any()){
+                rv_note_for_later.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                rv_note_for_later.adapter = NoteForLaterAdapter(it)
+                rv_note_for_later.setHasFixedSize(true)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            100 -> {
-                //Todo refresh
+            0 -> {
+
+            }
+            1 -> {
+
+            }
+            2 -> {
+
+            }
+            3 -> {
+                viewModel.getNotes()
             }
         }
     }
@@ -35,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         rfabHelper.toggleContent();
         val intent = Intent(this@MainActivity, SaveTaskHostActivity::class.java)
         intent.putExtra(Constants.TASK_TYPE_KEY, position)
-        startActivityForResult(intent, 100)
+        startActivityForResult(intent, position)
     }
 
     private fun setUpMenu(){

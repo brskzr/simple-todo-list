@@ -13,7 +13,7 @@ interface TodoService {
     @Query("SELECT * FROM todos WHERE Id = :Id")
     suspend fun getById(Id: Int): TodoItemDataModel
 
-    @Query("SELECT * FROM todos WHERE type = :type")
+    @Query("SELECT * FROM todos WHERE type = :type ORDER BY remindAt desc")
     suspend fun getByType(type: TodoItemType): List<TodoItemDataModel>
 
     @Insert

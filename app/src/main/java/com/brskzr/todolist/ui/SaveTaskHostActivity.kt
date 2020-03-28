@@ -1,5 +1,7 @@
 package com.brskzr.todolist.ui
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,7 +25,10 @@ class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
     }
 
     override fun onDataCreate(model: TodoItemDataModel){
-        viewModel.addNewItem(model, { finish() })
+        viewModel.addNewItem(model, {
+            setResult(0, Intent())
+            finish()
+        })
     }
 
     private fun initViews(){

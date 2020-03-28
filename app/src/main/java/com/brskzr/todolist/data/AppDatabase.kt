@@ -26,5 +26,9 @@ abstract class AppDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) = Room.databaseBuilder(context,
             AppDatabase::class.java, "todo-list.db")
             .build()
+
+        fun instance(context: Context) : AppDatabase{
+            return  AppDatabase(context)
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -37,3 +38,8 @@ fun TextInputEditText.isEmpty(): Boolean {
 fun EditText.isEmpty(): Boolean {
     return this.text.toString().isEmpty()
 }
+
+val PATTERN_DATE_TIME = "dd.MM.yyyy HH:mm"
+val dateTimeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
+
+fun Date.formatDateTime() : String  = dateTimeFormat.format(this)

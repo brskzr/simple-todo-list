@@ -25,6 +25,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             return passSomeones
         }
 
+    private var doItImmediates :  MutableLiveData<List<TodoItemDataModel>> = MutableLiveData<List<TodoItemDataModel>>(emptyList())
+    val listOfdoItImmediate:LiveData<List<TodoItemDataModel>>
+        get() {
+            getDoItImmediates()
+            return doItImmediates
+        }
+
+    private var planIt :  MutableLiveData<List<TodoItemDataModel>> = MutableLiveData<List<TodoItemDataModel>>(emptyList())
+    val listOfPlanIt:LiveData<List<TodoItemDataModel>>
+        get() {
+            getPlanIts()
+            return planIt
+        }
+
     fun getNotes() {
         viewModelScope.launch {
             val service = AppDatabase.instance(getApplication()).getTodoService()
@@ -38,6 +52,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.PASS_SOMEONE)
             passSomeones.postValue(items)
+        }
+    }
+
+    fun getDoItImmediates() {
+        viewModelScope.launch {
+            val service = AppDatabase.instance(getApplication()).getTodoService()
+            val items = service.getByType(TodoItemType.DO_IT_IMMEDIATE)
+            doItImmediates.postValue(items)
+        }
+    }
+
+    fun getPlanIts() {
+        viewModelScope.launch {
+            val service = AppDatabase.instance(getApplication()).getTodoService()
+            val items = service.getByType(TodoItemType.PLAN_FOR_LATER)
+            planIt.postValue(items)
         }
     }
 }

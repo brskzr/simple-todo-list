@@ -43,3 +43,5 @@ val PATTERN_DATE_TIME = "dd.MM.yyyy HH:mm"
 val dateTimeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
 
 fun Date.formatDateTime() : String  = dateTimeFormat.format(this)
+
+fun Date.toLocalDateTime() = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()

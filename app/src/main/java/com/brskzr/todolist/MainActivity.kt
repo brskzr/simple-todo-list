@@ -8,10 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.brskzr.todolist.adapters.ChecklistAdapter
-import com.brskzr.todolist.adapters.NoteForLaterAdapter
-import com.brskzr.todolist.adapters.PassSomeoneAdapter
+import com.brskzr.todolist.adapters.*
 import com.brskzr.todolist.models.Constants
+import com.brskzr.todolist.ui.PlanItDialogFragment
 import com.brskzr.todolist.ui.SaveTaskHostActivity
 import com.brskzr.todolist.viewmodels.MainViewModel
 import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
@@ -48,17 +47,29 @@ class MainActivity : AppCompatActivity() {
                 rv_pass_someone.setHasFixedSize(true)
             }
         })
+
+        viewModel.listOfdoItImmediate.observe(this, Observer {
+            if(it.any()){
+                rv_do_it_immediate.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                rv_do_it_immediate.adapter = DoItImmediateAdapter(it)
+                rv_do_it_immediate.setHasFixedSize(true)
+            }
+        })
+
+        viewModel.listOfPlanIt.observe(this, Observer {
+            if(it.any()){
+                rv_plan_it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+                rv_plan_it.adapter = PlanForLaterAdapter(it)
+                rv_plan_it.setHasFixedSize(true)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
-            0 -> {
-
-            }
-            1 -> {
-
-            }
+            0 -> viewModel.getDoItImmediates()
+            1 -> viewModel.getPlanIts()
             2 -> viewModel.getPassSomeones()
             3 -> viewModel.getNotes()
         }
@@ -66,6 +77,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSaveReminder(position:Int) {
         rfabHelper.toggleContent();
+
+        PlanItDialogFragment().show(this.supportFragmentManager, "item_click")
+
+        return;
         val intent = Intent(this@MainActivity, SaveTaskHostActivity::class.java)
         intent.putExtra(Constants.TASK_TYPE_KEY, position)
         startActivityForResult(intent, position)

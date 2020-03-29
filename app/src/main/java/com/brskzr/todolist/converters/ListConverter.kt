@@ -15,7 +15,7 @@ class ListConverter {
         if (data == null){
             return Collections.emptyList()
         }
-        val listType = object : TypeToken<ArrayList<String>>() {}.type
+        val listType = object : TypeToken<List<ChecklistItem>>() {}.type
 
         return gson.fromJson(data, listType)
     }

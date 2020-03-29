@@ -42,6 +42,11 @@
                 android:text="@string/do_it_immediate"
                 android:background="#00bfa5"
                 android:textColor="@android:color/white"></TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_do_it_immediate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -71,11 +76,13 @@
                 android:text="@string/plan_for_later"
                 android:background="#304ffe"
                 android:textColor="@android:color/white"></TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_plan_it"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
-
 
     <!-- ROW 2  -->
     <!-- COLUMN 1  -->

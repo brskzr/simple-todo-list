@@ -10,19 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brskzr.todolist.adapters.*
 import com.brskzr.todolist.models.Constants
-import com.brskzr.todolist.ui.PlanItDialogFragment
+import com.brskzr.todolist.models.TodoItemDataModel
+import com.brskzr.todolist.ui.DialogButtonsFragment
 import com.brskzr.todolist.ui.SaveTaskHostActivity
+import com.brskzr.todolist.ui.toast
 import com.brskzr.todolist.viewmodels.MainViewModel
-import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.floating_menu.*
-import kotlinx.android.synthetic.main.fragment_plan_for_later.*
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
     lateinit var rfabHelper: RapidFloatingActionHelper
     private lateinit var viewModel:MainViewModel
 
@@ -35,7 +34,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.listOfNote.observe(this, Observer {
             if(it.any()){
                 rv_note_for_later.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                rv_note_for_later.adapter = NoteForLaterAdapter(it)
+                rv_note_for_later.adapter = NoteForLaterAdapter(it, { item ->
+                    DialogButtonsFragment().withActions(false, false).open(this, item)
+                })
                 rv_note_for_later.setHasFixedSize(true)
             }
         })
@@ -65,6 +66,22 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onComplete(todoItemDataModel: TodoItemDataModel) {
+        toast(todoItemDataModel.Id.toString())
+    }
+
+    override fun onEdit(todoItemDataModel: TodoItemDataModel) {
+        toast(todoItemDataModel.Id.toString())
+    }
+
+    override fun onRemove(todoItemDataModel: TodoItemDataModel) {
+        viewModel.deleteItem(todoItemDataModel)
+    }
+
+    override fun onShare(todoItemDataModel: TodoItemDataModel) {
+        toast(todoItemDataModel.Id.toString())
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
@@ -76,11 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openSaveReminder(position:Int) {
-        rfabHelper.toggleContent();
-
-        PlanItDialogFragment().show(this.supportFragmentManager, "item_click")
-
-        return;
+        rfabHelper.toggleContent()
         val intent = Intent(this@MainActivity, SaveTaskHostActivity::class.java)
         intent.putExtra(Constants.TASK_TYPE_KEY, position)
         startActivityForResult(intent, position)

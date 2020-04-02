@@ -41,6 +41,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getNotes() {
         viewModelScope.launch {
+            //todo bunu viewmodelin propu yap
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.NOTE_FOR_LATER)
             notes.postValue(items)
@@ -68,6 +69,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.PLAN_FOR_LATER)
             planIt.postValue(items)
+        }
+    }
+
+    fun deleteItem(todoItemDataModel: TodoItemDataModel) {
+        viewModelScope.launch {
+            try {
+                val service = AppDatabase.instance(getApplication()).getTodoService()
+                service.delete(todoItemDataModel)
+                val items =service.getByType(TodoItemType.NOTE_FOR_LATER)
+                //notes.value = listOf(items
+            }
+            catch (ex :Exception){
+
+            }
         }
     }
 }

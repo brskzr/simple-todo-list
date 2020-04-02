@@ -31,6 +31,10 @@ fun Fragment.toast(message: String) {
     Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
 }
 
+fun Activity.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
 fun TextInputEditText.isEmpty(): Boolean {
     return this.text.toString().isEmpty()
 }

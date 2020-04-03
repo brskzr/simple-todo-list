@@ -12,7 +12,7 @@ class TodoItemDataModel(
     val Id:Int,
 
     @ColumnInfo(name = "hasReminder")
-    var hasReminder:Boolean,
+    val hasReminder:Boolean,
 
     @TypeConverters(DateTypeConverter::class)
     var remindAt:Date,
@@ -29,7 +29,10 @@ class TodoItemDataModel(
     var checkList:List<ChecklistItem>,
 
     @ColumnInfo(name = "someone")
-    var someone:String
+    var someone:String,
+
+    @ColumnInfo(name = "IsCompleted")
+    var IsCompleted:Boolean
 )
 
 

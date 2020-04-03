@@ -2,11 +2,13 @@ package com.brskzr.todolist.ui
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.brskzr.todolist.R
@@ -15,26 +17,29 @@ import com.brskzr.todolist.adapters.ChecklistAdapter
 import com.brskzr.todolist.models.ChecklistItem
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.models.TodoItemType
+import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
 import kotlinx.android.synthetic.main.fragment_plan_for_later.*
 import java.time.LocalDateTime
 
 
 class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler {
 
-    private lateinit var dataHandler: IDataHandler
     private lateinit var checklistAdapter : ChecklistAdapter
+    private lateinit var viewModel: SaveTaskHostViewModel
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.let {
+            viewModel = ViewModelProvider(it).get(SaveTaskHostViewModel::class.java)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_plan_for_later, container, false)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        dataHandler = context as IDataHandler
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,10 +57,14 @@ class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHand
             TodoItemType.PLAN_FOR_LATER,
             et_tagname.text.toString(),
             checklistAdapter.items,
-            ""
+            "",
+            false
         )
 
-        dataHandler.onDataCreate(model)
+        viewModel.addNewItem(model, {
+            activity?.setResult(0, Intent())
+            activity?.finish()
+        })
     }
 
     private fun initViews(){
@@ -71,6 +80,11 @@ class PlanForLaterFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHand
                 toast("What is cheklist item? Please enter..")
                 return@setOnClickListener
             }
+            if(checklistAdapter.items.size == 20) {
+                toast("Max checklist count!")
+                return@setOnClickListener
+            }
+
             checklistAdapter.addItem(ChecklistItem(false, et_checklist_item.text.toString()))
             et_checklist_item.setText("")
         }

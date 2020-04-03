@@ -31,43 +31,42 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
         setUpMenu()
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
         viewModel.listOfNote.observe(this, Observer {
-            if(it.any()){
-                rv_note_for_later.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                rv_note_for_later.adapter = NoteForLaterAdapter(it, { item ->
-                    DialogButtonsFragment().withActions(false, false).open(this, item)
-                })
-                rv_note_for_later.setHasFixedSize(true)
-            }
+            rv_note_for_later.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rv_note_for_later.adapter = NoteForLaterAdapter(it, { item ->
+                DialogButtonsFragment().withActions(false, false).open(this, item)
+            })
+            rv_note_for_later.setHasFixedSize(true)
         })
 
         viewModel.listPassSomone.observe(this, Observer {
-            if(it.any()){
-                rv_pass_someone.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                rv_pass_someone.adapter = PassSomeoneAdapter(it)
-                rv_pass_someone.setHasFixedSize(true)
-            }
+            rv_pass_someone.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rv_pass_someone.adapter = PassSomeoneAdapter(it, { item ->
+                DialogButtonsFragment().withActions(true, true).open(this, item)
+            })
+            rv_pass_someone.setHasFixedSize(true)
         })
 
         viewModel.listOfdoItImmediate.observe(this, Observer {
-            if(it.any()){
-                rv_do_it_immediate.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                rv_do_it_immediate.adapter = DoItImmediateAdapter(it)
-                rv_do_it_immediate.setHasFixedSize(true)
-            }
+            rv_do_it_immediate.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rv_do_it_immediate.adapter = DoItImmediateAdapter(it, { item ->
+                DialogButtonsFragment().withActions(false, true).open(this, item)
+            })
+            rv_do_it_immediate.setHasFixedSize(true)
         })
 
         viewModel.listOfPlanIt.observe(this, Observer {
-            if(it.any()){
-                rv_plan_it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                rv_plan_it.adapter = PlanForLaterAdapter(it)
-                rv_plan_it.setHasFixedSize(true)
-            }
+            rv_plan_it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rv_plan_it.adapter = PlanForLaterAdapter(it, { item ->
+                DialogButtonsFragment().withActions(false, true).open(this, item)
+            })
+            rv_plan_it.setHasFixedSize(true)
         })
     }
 
     override fun onComplete(todoItemDataModel: TodoItemDataModel) {
-        toast(todoItemDataModel.Id.toString())
+        viewModel.markAsCompleted(todoItemDataModel)
     }
 
     override fun onEdit(todoItemDataModel: TodoItemDataModel) {

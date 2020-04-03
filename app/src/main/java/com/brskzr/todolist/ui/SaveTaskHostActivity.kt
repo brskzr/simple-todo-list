@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.brskzr.todolist.R
@@ -13,7 +14,7 @@ import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
 import kotlinx.android.synthetic.main.activity_save_reminder.*
 import kotlinx.android.synthetic.main.toolbar_savetask.*
 
-class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
+class SaveTaskHostActivity : AppCompatActivity() {
 
     private lateinit var viewModel:SaveTaskHostViewModel
     private lateinit var eventHandler : ISaveTaskEventHandler
@@ -24,19 +25,14 @@ class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
         initViews()
     }
 
-    override fun onDataCreate(model: TodoItemDataModel){
-        viewModel.addNewItem(model, {
-            setResult(0, Intent())
-            finish()
-        })
-    }
-
     private fun initViews(){
         viewModel = ViewModelProvider(this).get(SaveTaskHostViewModel::class.java)
 
         val taskType = getIntFromIntent(Constants.TASK_TYPE_KEY)
         val fragment = prepareScreen(taskType)
         eventHandler = fragment as ISaveTaskEventHandler
+        viewModel.selectedItemId = getIntFromIntent(Constants.ITEM_ID)
+
         container(R.id.host_frame, fragment)
     }
 
@@ -70,8 +66,4 @@ class SaveTaskHostActivity : AppCompatActivity(), IDataHandler {
     interface ISaveTaskEventHandler {
         fun onSave()
     }
-}
-
-interface IDataHandler{
-    fun onDataCreate(model: TodoItemDataModel)
 }

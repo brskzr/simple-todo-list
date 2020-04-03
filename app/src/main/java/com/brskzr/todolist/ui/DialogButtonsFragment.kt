@@ -49,10 +49,16 @@ class DialogButtonsFragment():  DialogFragment(), View.OnClickListener{
         divider_three.visibility = if(isShareVisible) View.VISIBLE else View.GONE
         iv_share.visibility = if(isShareVisible) View.VISIBLE else View.GONE
 
-        iv_complete.setOnClickListener(this)
+        divider_one.visibility = if(isCompleteVisible) View.VISIBLE else View.GONE
+        iv_complete.visibility = if(isCompleteVisible) View.VISIBLE else View.GONE
+
+        if(isCompleteVisible)
+            iv_complete.setOnClickListener(this)
+        if(isShareVisible)
+            iv_share.setOnClickListener(this)
+
         iv_edit.setOnClickListener(this)
         iv_remove.setOnClickListener(this)
-        iv_share.setOnClickListener(this)
     }
 
     fun withActions(isShareVisible:Boolean = false, isCompleteVisible:Boolean = false) : DialogButtonsFragment {

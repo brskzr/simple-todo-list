@@ -9,7 +9,7 @@ import com.brskzr.todolist.R
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.ui.formatDateTime
 
-class PassSomeoneAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adapter<PassSomeoneAdapter.ViewHolder>() {
+class PassSomeoneAdapter(val items:List<TodoItemDataModel>, val onClick: (TodoItemDataModel) -> Unit) : RecyclerView.Adapter<PassSomeoneAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
                             .from(parent.context)
@@ -21,19 +21,23 @@ class PassSomeoneAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adapt
     override fun getItemCount(): Int = items.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], onClick)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindItems(item: TodoItemDataModel) {
+        fun bindItems(item: TodoItemDataModel, onClick: (TodoItemDataModel) -> Unit) {
             val tvNoteDate = view.findViewById(R.id.tv_reminde_at) as TextView
             val tvNoteDetail = view.findViewById(R.id.tv_task_detail) as TextView
             val tvSomeone = view.findViewById(R.id.tv_someone) as TextView
 
             tvNoteDate.setText(item.remindAt.formatDateTime())
             tvNoteDetail.setText(item.tag)
-            //tvSomeone.setText(item.someone)
+            tvSomeone.setText(item.someone)
+
+            view.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import com.brskzr.todolist.R
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.ui.formatDateTime
 
-class PlanForLaterAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adapter<PlanForLaterAdapter.ViewHolder>() {
+class PlanForLaterAdapter(val items:List<TodoItemDataModel>, val onClick: (TodoItemDataModel) -> Unit) : RecyclerView.Adapter<PlanForLaterAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater
                             .from(parent.context)
@@ -21,12 +21,12 @@ class PlanForLaterAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adap
     override fun getItemCount(): Int = items.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], onClick)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindItems(item: TodoItemDataModel) {
+        fun bindItems(item: TodoItemDataModel, onClick: (TodoItemDataModel) -> Unit) {
             val tvNoteDate = view.findViewById(R.id.tv_reminde_at) as TextView
             val tvNoteDetail = view.findViewById(R.id.tv_task_detail) as TextView
             val tvCheckList = view.findViewById(R.id.tv_checklist) as TextView
@@ -36,6 +36,8 @@ class PlanForLaterAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adap
 
             val checklist = if(item.checkList?.any())  item.checkList.map { "*${it.tag}"  }.joinToString() else ""
             tvCheckList.setText(checklist)
+
+            view.setOnClickListener { onClick(item) }
         }
     }
 }

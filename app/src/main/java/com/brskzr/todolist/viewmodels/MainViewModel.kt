@@ -44,7 +44,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             //todo bunu viewmodelin propu yap
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.NOTE_FOR_LATER)
-            notes.postValue(items)
+            notes.value = items
         }
     }
 
@@ -52,7 +52,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.PASS_SOMEONE)
-            passSomeones.postValue(items)
+            passSomeones.value = items
         }
     }
 
@@ -60,7 +60,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.DO_IT_IMMEDIATE)
-            doItImmediates.postValue(items)
+            doItImmediates.value = items
         }
     }
 
@@ -68,7 +68,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val service = AppDatabase.instance(getApplication()).getTodoService()
             val items = service.getByType(TodoItemType.PLAN_FOR_LATER)
-            planIt.postValue(items)
+            planIt.value = items
         }
     }
 
@@ -77,12 +77,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val service = AppDatabase.instance(getApplication()).getTodoService()
                 service.delete(todoItemDataModel)
-                val items =service.getByType(TodoItemType.NOTE_FOR_LATER)
-                //notes.value = listOf(items
+                reloadData(todoItemDataModel.type)
             }
             catch (ex :Exception){
 
             }
         }
+    }
+
+    fun markAsCompleted(todoItemDataModel: TodoItemDataModel) {
+        viewModelScope.launch {
+            try {
+                val service = AppDatabase.instance(getApplication()).getTodoService()
+                todoItemDataModel.IsCompleted = true
+                service.updateTodo(todoItemDataModel)
+                reloadData(todoItemDataModel.type)
+            }
+            catch (ex :Exception){
+
+            }
+        }
+    }
+
+    private fun reloadData(type: TodoItemType) = when(type){
+        TodoItemType.DO_IT_IMMEDIATE -> getDoItImmediates()
+        TodoItemType.PLAN_FOR_LATER -> getPlanIts()
+        TodoItemType.PASS_SOMEONE -> getPassSomeones()
+        TodoItemType.NOTE_FOR_LATER -> getNotes()
+        else -> {}
     }
 }

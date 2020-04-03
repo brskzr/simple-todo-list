@@ -12,11 +12,8 @@ import com.brskzr.todolist.models.TodoItemDataModel
 import kotlinx.coroutines.launch
 
 class SaveTaskHostViewModel(application: Application) : AndroidViewModel(application) {
-
-    private var data : MutableLiveData<List<TodoItemDataModel>> = MutableLiveData<List<TodoItemDataModel>>()
-    val items: LiveData<List<TodoItemDataModel>>
-    get() = data
-
+    private lateinit var dataModel : MutableLiveData<TodoItemDataModel?>
+    var selectedItemId: Int? = null
 
     fun addNewItem(todoItemDataModel: TodoItemDataModel, success:()->Unit) {
         viewModelScope.launch {
@@ -31,10 +28,18 @@ class SaveTaskHostViewModel(application: Application) : AndroidViewModel(applica
         }
     }
 
-    fun getItems() {
+    fun getModel(id:Int) : LiveData<TodoItemDataModel?> {
+        dataModel = MutableLiveData(null)
         viewModelScope.launch {
-            val db = AppDatabase(getApplication())
-            data.value = db.getTodoService().getAll()
+            try {
+                val db = AppDatabase(getApplication())
+                dataModel.value = db.getTodoService().getById(id)
+            }
+            catch (ex: Exception){
+                Log.e("MYAPPERROR", ex.toString())
+            }
         }
+
+        return dataModel
     }
 }

@@ -11,7 +11,7 @@ import com.brskzr.todolist.ui.formatDateTime
 import com.brskzr.todolist.ui.toDate
 import java.time.LocalDateTime
 
-class DoItImmediateAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Adapter<DoItImmediateAdapter.ViewHolder>() {
+class DoItImmediateAdapter(val items:List<TodoItemDataModel>, val onClick: (TodoItemDataModel) -> Unit) : RecyclerView.Adapter<DoItImmediateAdapter.ViewHolder>() {
 
     val now:LocalDateTime
         get() = LocalDateTime.now()
@@ -27,12 +27,12 @@ class DoItImmediateAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Ada
     override fun getItemCount(): Int = items.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(items[position], now)
+        holder.bindItems(items[position], now, onClick)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bindItems(item: TodoItemDataModel, now:LocalDateTime) {
+        fun bindItems(item: TodoItemDataModel, now:LocalDateTime, onClick: (TodoItemDataModel) -> Unit) {
             val tvRemaining = view.findViewById(R.id.tv_remaining) as TextView
             val tvTaskDetail = view.findViewById(R.id.tv_task_detail) as TextView
 
@@ -41,6 +41,10 @@ class DoItImmediateAdapter(val items:List<TodoItemDataModel>) : RecyclerView.Ada
 
             tvRemaining.setText(remaining)
             tvTaskDetail.setText(item.tag)
+
+            view.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 }

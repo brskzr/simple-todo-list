@@ -23,6 +23,10 @@ fun Activity.getIntFromIntent(key:String):Int {
     return this.intent.extras?.let { it.getInt(key, 0) } ?: 0
 }
 
+fun Activity.getBoolFromIntent(key:String):Boolean {
+    return this.intent.extras?.let { it.getBoolean(key, false) } ?: false
+}
+
 fun LocalDateTime.toDate() : Date {
     return Date.from(this.atZone(ZoneId.systemDefault()).toInstant())
 }

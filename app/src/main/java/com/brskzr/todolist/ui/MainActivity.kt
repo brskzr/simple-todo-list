@@ -1,4 +1,4 @@
-package com.brskzr.todolist
+package com.brskzr.todolist.ui
 
 import android.content.Intent
 import android.graphics.Color
@@ -7,14 +7,11 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.brskzr.todolist.R
 import com.brskzr.todolist.adapters.*
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.models.TodoItemType
-import com.brskzr.todolist.ui.DialogButtonsFragment
-import com.brskzr.todolist.ui.SaveTaskHostActivity
-import com.brskzr.todolist.ui.toast
 import com.brskzr.todolist.viewmodels.MainViewModel
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
@@ -79,7 +76,7 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
     }
 
     override fun onShare(todoItemDataModel: TodoItemDataModel) {
-        toast(todoItemDataModel.Id.toString())
+        share("${todoItemDataModel.someone}, ${todoItemDataModel.tag}" )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,7 +128,7 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
             .setResId(R.drawable.ic_do_it_immediate)
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
-            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_green))
+            .setLabelBackgroundDrawable(getDrawable(R.drawable.shape_bg_rec_green))
             .setWrapper(0)
         )
 
@@ -140,14 +137,14 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
             .setResId(R.drawable.ic_plan_it)
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
-            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_blue))
+            .setLabelBackgroundDrawable(getDrawable(R.drawable.shape_bg_rec_blue))
             .setWrapper(1)
         )
 
         items.add(RFACLabelItem<Int>()
             .setLabel(resources.getString(R.string.pass_someone))
             .setResId(R.drawable.ic_delegate_it)
-            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_yellow))
+            .setLabelBackgroundDrawable(getDrawable(R.drawable.shape_bg_rec_yellow))
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
             .setWrapper(2)
@@ -159,7 +156,7 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
             .setLabelColor(R.color.colorLabelRed)
             .setLabelSizeSp(16)
             .setLabelColor(Color.WHITE)
-            .setLabelBackgroundDrawable(getDrawable( R.drawable.shape_bg_rec_red))
+            .setLabelBackgroundDrawable(getDrawable(R.drawable.shape_bg_rec_red))
             .setWrapper(3)
         )
 

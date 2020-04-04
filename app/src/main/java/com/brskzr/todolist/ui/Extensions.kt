@@ -27,6 +27,18 @@ fun Activity.hideKeyboard() {
 }
 
 
+fun Activity.share(message: String) {
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, message)
+        type = "text/plain"
+    }
+
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    startActivity(shareIntent)
+}
+
+
 fun AppCompatActivity.container(containerId: Int, fragment: Fragment){
     this.supportFragmentManager.beginTransaction()
         .add(containerId, fragment)

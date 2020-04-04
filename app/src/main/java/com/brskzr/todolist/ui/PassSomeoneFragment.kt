@@ -8,24 +8,40 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.brskzr.todolist.R
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.models.TodoItemType
 import com.brskzr.todolist.viewmodels.SaveTaskHostViewModel
+import kotlinx.android.synthetic.main.fragment_do_it_immediate.*
 import kotlinx.android.synthetic.main.fragment_pass_someone.*
+import kotlinx.android.synthetic.main.fragment_pass_someone.dtp_plandate
+import kotlinx.android.synthetic.main.fragment_pass_someone.et_tagname
+import kotlinx.android.synthetic.main.fragment_plan_for_later.*
 import java.time.LocalDateTime
 
 class PassSomeoneFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandler{
 
     private lateinit var viewModel: SaveTaskHostViewModel
-
+    private var model:TodoItemDataModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.let {
             viewModel = ViewModelProvider(it).get(SaveTaskHostViewModel::class.java)
+        }
+
+        if(viewModel.isUpdate){
+            viewModel.getModel(viewModel.selectedItemId).observe(this, Observer {
+                it?.let {
+                    model = it
+                    dtp_plandate.initialDate(it.remindAt.toLocalDateTime())
+                    et_tagname.setText(it.tag)
+                    et_someone.setText(it.someone)
+                }
+            })
         }
     }
 
@@ -60,20 +76,34 @@ class PassSomeoneFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHandl
     override fun onSave() {
         if(!validate()) return
 
-        val model = TodoItemDataModel(
-            0,
-            true,
-            dtp_plandate.selectedDate,
-            TodoItemType.PASS_SOMEONE,
-            et_tagname.text.toString(),
-            emptyList(),
-            et_someone.text.toString(),
-            false
-        )
+        if(viewModel.isUpdate){
+            model?.apply {
+                remindAt = dtp_plandate.selectedDate
+                tag = et_tagname.text.toString()
+                someone = et_someone.text.toString()
+            }?.also {
+                viewModel.updateItem(it, {
+                    activity?.setResult(0, Intent())
+                    activity?.finish()
+                })
+            }
+        }
+        else{
+            val model = TodoItemDataModel(
+                0,
+                true,
+                dtp_plandate.selectedDate,
+                TodoItemType.PASS_SOMEONE,
+                et_tagname.text.toString(),
+                emptyList(),
+                et_someone.text.toString(),
+                false
+            )
 
-        viewModel.addNewItem(model, {
-            activity?.setResult(0, Intent())
-            activity?.finish()
-        })
+            viewModel.addNewItem(model, {
+                activity?.setResult(0, Intent())
+                activity?.finish()
+            })
+        }
     }
 }

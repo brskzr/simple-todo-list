@@ -38,8 +38,6 @@ class DateTimePicker @JvmOverloads constructor(
     val selectedDate: Date
         get() =  Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant())
 
-
-
     init {
         initViews()
     }
@@ -49,6 +47,11 @@ class DateTimePicker @JvmOverloads constructor(
         this.orientation = VERTICAL
         this.isClickable = true
         cv_datepicker_container.setOnClickListener { openDateDialog()  }
+        setDateTime()
+    }
+
+    fun initialDate(dateTime:LocalDateTime) {
+        this.dateTime = dateTime
         setDateTime()
     }
 
@@ -86,8 +89,7 @@ class DatePickerFragment(val handler: OnPickHandler) : DialogFragment(), DatePic
     private lateinit var localDateTime: LocalDateTime
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val picker = DatePickerDialog(activity!!, this, localDateTime.year, localDateTime.month.value, localDateTime.dayOfMonth)
-        picker.datePicker.minDate = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+        val picker = DatePickerDialog(activity!!, this, localDateTime.year, localDateTime.monthValue - 1, localDateTime.dayOfMonth)
         return picker
     }
 
@@ -115,7 +117,7 @@ class TimePickerFragment(val handler: OnPickHandler) : DialogFragment(), TimePic
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, min: Int) {
 
         val selected = LocalDateTime.of(localDateTime.year,
-                                        localDateTime.month,
+                                        localDateTime.month + 1,
                                         localDateTime.dayOfMonth,
                                         hourOfDay,
                                         min)

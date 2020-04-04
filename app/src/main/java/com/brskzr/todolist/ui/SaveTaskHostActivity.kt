@@ -31,7 +31,12 @@ class SaveTaskHostActivity : AppCompatActivity() {
         val taskType = getIntFromIntent(Constants.TASK_TYPE_KEY)
         val fragment = prepareScreen(taskType)
         eventHandler = fragment as ISaveTaskEventHandler
-        viewModel.selectedItemId = getIntFromIntent(Constants.ITEM_ID)
+
+        val isUpdate = getBoolFromIntent(Constants.IS_UPDATE)
+        if(isUpdate) {
+            viewModel.selectedItemId = getIntFromIntent(Constants.ITEM_ID)
+            viewModel.isUpdate = isUpdate
+        }
 
         container(R.id.host_frame, fragment)
     }

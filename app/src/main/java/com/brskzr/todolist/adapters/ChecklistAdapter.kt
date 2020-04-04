@@ -12,19 +12,21 @@ import com.brskzr.todolist.models.ChecklistItem
 import com.brskzr.todolist.R
 
 
-
 class ChecklistAdapter(val items: MutableList<ChecklistItem>, onClick: CheckListAdapterListener) : RecyclerView.Adapter<ChecklistAdapter.ModelViewHolder>() {
 
     private var onClick = onClick
 
+    fun addRange(data: List<ChecklistItem>){
+        items.addAll(data)
+    }
     fun addItem(item: ChecklistItem){
         items.add(0, item)
-        notifyDataSetChanged()
+        notifyItemInserted(0)
     }
 
     fun removeItem(index:Int){
         items.removeAt(index)
-        notifyDataSetChanged()
+        notifyItemRemoved(index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModelViewHolder {
@@ -55,6 +57,8 @@ class ChecklistAdapter(val items: MutableList<ChecklistItem>, onClick: CheckList
 
             cbIsChecked.isChecked = item.isChecked
             tvItemTagName.setText(item.tag)
+
+            cbIsChecked.setOnCheckedChangeListener { buttonView, isChecked -> item.isChecked = isChecked  }
         }
     }
 }

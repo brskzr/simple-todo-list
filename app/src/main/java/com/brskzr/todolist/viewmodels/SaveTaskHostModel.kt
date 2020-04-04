@@ -13,13 +13,27 @@ import kotlinx.coroutines.launch
 
 class SaveTaskHostViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var dataModel : MutableLiveData<TodoItemDataModel?>
-    var selectedItemId: Int? = null
+    var selectedItemId: Int = 0
+    var isUpdate:Boolean = false
 
     fun addNewItem(todoItemDataModel: TodoItemDataModel, success:()->Unit) {
         viewModelScope.launch {
             try {
                 val db = AppDatabase(getApplication())
                 db.getTodoService().insert(todoItemDataModel)
+                success()
+            }
+            catch (ex: Exception){
+                Log.e("MYAPPERROR", ex.toString())
+            }
+        }
+    }
+
+    fun updateItem(todoItemDataModel: TodoItemDataModel, success:()->Unit) {
+        viewModelScope.launch {
+            try {
+                val db = AppDatabase(getApplication())
+                db.getTodoService().updateTodo(todoItemDataModel)
                 success()
             }
             catch (ex: Exception){

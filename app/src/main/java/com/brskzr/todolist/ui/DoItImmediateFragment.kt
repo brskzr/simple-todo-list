@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 
@@ -33,6 +34,7 @@ class DoItImmediateFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHan
     private var dateTime: LocalDateTime = LocalDateTime.now()
     private val timeFormatter : DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     private lateinit var viewModel: SaveTaskHostViewModel
+    private var model:TodoItemDataModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +42,20 @@ class DoItImmediateFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHan
             viewModel = ViewModelProvider(it).get(SaveTaskHostViewModel::class.java)
         }
 
-        viewModel.selectedItemId?.let {
+        if(viewModel.isUpdate){
+            viewModel.getModel(viewModel.selectedItemId).observe(this, Observer {
+                it?.let {
+                    model = it
 
+                    val now = LocalDateTime.now()
+                        .withHour(it.remindAt.toLocalDateTime().hour)
+                        .withMinute(it.remindAt.toLocalDateTime().minute)
+                    dateTime = now
+
+                    tv_reminde_at.setText(dateTime.format(timeFormatter))
+                    et_tagname.setText(it.tag)
+                }
+            })
         }
     }
 
@@ -79,7 +93,7 @@ class DoItImmediateFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHan
             return false
         }
 
-        if(LocalDateTime.now() > dateTime){
+        if(LocalDateTime.now().toLocalTime() > dateTime.toLocalTime()){
             toast("İleri bir zaman giriniz.")
             return false
         }
@@ -91,21 +105,34 @@ class DoItImmediateFragment : Fragment(), SaveTaskHostActivity.ISaveTaskEventHan
         if(!validate())
             return
 
-        val model = TodoItemDataModel(
-            0,
-            true,
-            dateTime.toDate(),
-            TodoItemType.DO_IT_IMMEDIATE,
-            et_tagname.text.toString(),
-            emptyList(),
-            "",
-            false
-        )
+        if(viewModel.isUpdate) {
+            model?.apply {
+                remindAt = dateTime.toDate()
+                tag = et_tagname.text.toString()
+            }?.also {
+                viewModel.updateItem(it, {
+                    activity?.setResult(0, Intent())
+                    activity?.finish()
+                })
+            }
+        }
+        else{
+            val model = TodoItemDataModel(
+                0,
+                true,
+                dateTime.toDate(),
+                TodoItemType.DO_IT_IMMEDIATE,
+                et_tagname.text.toString(),
+                emptyList(),
+                "",
+                false
+            )
 
-        viewModel.addNewItem(model, {
-            activity?.setResult(0, Intent())
-            activity?.finish()
-        })
+            viewModel.addNewItem(model, {
+                activity?.setResult(0, Intent())
+                activity?.finish()
+            })
+        }
     }
 }
 

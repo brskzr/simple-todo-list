@@ -42,17 +42,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:weightSum="10">
 
         <EditText
+            android:layout_weight="9"
             android:id="@+id/et_checklist_item"
-            android:layout_width="360dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="You can add checklist item"
             android:maxLength="30"
             android:textSize="16sp"></EditText>
 
         <ImageView
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
             android:id="@+id/imgAddChecklistItem"
             android:layout_width="20dp"
             android:layout_height="20dp"

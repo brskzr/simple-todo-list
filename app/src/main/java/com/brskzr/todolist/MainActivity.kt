@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.brskzr.todolist.adapters.*
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.models.TodoItemDataModel
+import com.brskzr.todolist.models.TodoItemType
 import com.brskzr.todolist.ui.DialogButtonsFragment
 import com.brskzr.todolist.ui.SaveTaskHostActivity
 import com.brskzr.todolist.ui.toast
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
     }
 
     override fun onEdit(todoItemDataModel: TodoItemDataModel) {
-        toast(todoItemDataModel.Id.toString())
+        openSaveTaskForEdit(todoItemDataModel)
     }
 
     override fun onRemove(todoItemDataModel: TodoItemDataModel) {
@@ -89,6 +90,21 @@ class MainActivity : AppCompatActivity(), DialogButtonsFragment.IActionHandler {
             2 -> viewModel.getPassSomeones()
             3 -> viewModel.getNotes()
         }
+    }
+
+    private fun openSaveTaskForEdit(item: TodoItemDataModel){
+        var type = when(item.type){
+            TodoItemType.DO_IT_IMMEDIATE -> 0
+            TodoItemType.PLAN_FOR_LATER -> 1
+            TodoItemType.PASS_SOMEONE -> 2
+            TodoItemType.NOTE_FOR_LATER -> 3
+            else -> 0
+        }
+        val intent = Intent(this@MainActivity, SaveTaskHostActivity::class.java)
+        intent.putExtra(Constants.TASK_TYPE_KEY, type)
+        intent.putExtra(Constants.IS_UPDATE, true)
+        intent.putExtra(Constants.ITEM_ID, item.Id)
+        startActivityForResult(intent, type)
     }
 
     private fun openSaveReminder(position:Int) {

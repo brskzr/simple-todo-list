@@ -15,6 +15,10 @@ class Alarm(val context:Context) {
 
     private val manager : AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+    private val HALF_MINUTE = 30 * 1000
+
+    private val TWO_MINUTE: Long = 1000 * 60 * 2
+
     fun setOneTime(hour: Int, minute: Int) {
         val alarmTime = getAlarmTimeInMillis(hour, minute)
         manager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, getPendingIntent())
@@ -24,8 +28,8 @@ class Alarm(val context:Context) {
         val alarmTime = getAlarmTimeInMillis(hour, minute)
         manager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
-            alarmTime,
-            AlarmManager.INTERVAL_DAY,
+            alarmTime + HALF_MINUTE ,
+            TWO_MINUTE,
             getPendingIntent()
         )
     }

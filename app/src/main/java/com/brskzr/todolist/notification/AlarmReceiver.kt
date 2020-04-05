@@ -10,35 +10,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.ui.toLocalDateTime
+import java.time.LocalDateTime
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-
         if(isBootCompleted(intent)) {
             val hh = Date().toLocalDateTime().hour
-            val mm = Date().toLocalDateTime().minute + 5
-            Alarm(context!!).setOneTime(hh, mm)
-            Alarm(context!!).setRepeatedAt(0,1)
+            val mm = Date().toLocalDateTime().minute + 2
+            Alarm(context!!).setRepeatedAt(hh,mm)
         }
         else{
             CoroutineScope(Dispatchers.IO).launch {
-                val from = Alarm.getAlarmTimeInMillis(0, 0)
-                val to = Alarm.getAlarmTimeInMillis(23, 59)
+                val now = LocalDateTime.now()
+                val nowLong = Alarm.getAlarmTimeInMillis(now.hour, now.minute)
+
+                val from = nowLong.minus(1000 * 60)
+                val to = nowLong.plus( 1000 * 60)
 
                 val db = AppDatabase(context!!)
                 val tasks = db.getTodoService().getByDateRange(from, to)
 
                 if(tasks.any()) {
-                    val alarm = Alarm(context)
                     for(item in tasks){
-                        val intent = Intent(context, NotificationReceiver::class.java)
-                        intent.putExtra(Constants.ITEM_ID, item.Id)
-                        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-                        val hh = Date().toLocalDateTime().hour
-                        val mm = Date().toLocalDateTime().minute
-                        alarm.setForNotification(hh, mm, pendingIntent)
+                        NotificationUtils(context!!).notify(item.tag)
                     }
                 }
             }

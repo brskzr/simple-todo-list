@@ -28,26 +28,11 @@ class SaveTaskHostViewModel(application: Application) : AndroidViewModel(applica
             try {
                 val db = AppDatabase(getApplication())
                     db.getTodoService().insert(todoItemDataModel)
-                    //Eger bu gun icinse notification icin alarm setleniyor
-                    setAlarmIfToday(todoItemDataModel)
                     success()
 
             }
             catch (ex: Exception){
                 Log.e("MYAPPERROR", ex.toString())
-            }
-        }
-    }
-
-    private fun setAlarmIfToday(todoItemDataModel: TodoItemDataModel) {
-        if (todoItemDataModel.type == TodoItemType.DO_IT_IMMEDIATE ||
-            todoItemDataModel.type == TodoItemType.PLAN_FOR_LATER ||
-            todoItemDataModel.type == TodoItemType.PASS_SOMEONE) {
-
-            if (todoItemDataModel.remindAt.isToday()) {
-                val hh = todoItemDataModel.remindAt.toLocalDateTime().hour
-                val mm = todoItemDataModel.remindAt.toLocalDateTime().minute
-                Alarm(getApplication()).setOneTime(hh, mm)
             }
         }
     }

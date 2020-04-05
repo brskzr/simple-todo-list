@@ -25,6 +25,6 @@ interface TodoService {
     @Update
     suspend fun updateTodo(todo: TodoItemDataModel)
 
-    @Query("SELECT * FROM todos WHERE isCompleted = 0 and  remindAt BETWEEN :from AND :to")
+    @Query("SELECT * FROM todos WHERE type in(1,2,3) and isCompleted = 0 and remindAt BETWEEN :from AND :to")
     suspend fun getByDateRange(from:Long, to:Long) : List<TodoItemDataModel>
 }

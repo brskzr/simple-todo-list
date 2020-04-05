@@ -12,6 +12,7 @@ import com.brskzr.todolist.adapters.*
 import com.brskzr.todolist.models.Constants
 import com.brskzr.todolist.models.TodoItemDataModel
 import com.brskzr.todolist.models.TodoItemType
+import com.brskzr.todolist.notification.NotificationUtils
 import com.brskzr.todolist.viewmodels.MainViewModel
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem

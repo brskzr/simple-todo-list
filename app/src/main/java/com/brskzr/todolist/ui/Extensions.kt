@@ -2,6 +2,7 @@ package com.brskzr.todolist.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.text.format.DateUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -53,9 +54,24 @@ fun Activity.getBoolFromIntent(key:String):Boolean {
     return this.intent.extras?.let { it.getBoolean(key, false) } ?: false
 }
 
-fun LocalDateTime.toDate() : Date {
-    return Date.from(this.atZone(ZoneId.systemDefault()).toInstant())
-}
+/**
+ * Date Extensions
+ */
+val PATTERN_DATE_TIME = "dd.MM.yyyy HH:mm"
+val PATTERN_TIME = "HH:mm"
+val dateTimeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
+val timeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
+
+fun LocalDateTime.toDate() : Date =  Date.from(this.atZone(ZoneId.systemDefault()).toInstant())
+
+fun Date.isToday() : Boolean = DateUtils.isToday(this.time)
+
+fun Date.formatDateTime() : String  = dateTimeFormat.format(this)
+
+fun Date.formatTime() : String = timeFormat.format(this)
+
+fun Date.toLocalDateTime() = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+
 
 fun Fragment.toast(message: String) {
     Toast.makeText(this.activity, message, Toast.LENGTH_SHORT).show()
@@ -73,11 +89,3 @@ fun EditText.isEmpty(): Boolean {
     return this.text.toString().isEmpty()
 }
 
-val PATTERN_DATE_TIME = "dd.MM.yyyy HH:mm"
-val PATTERN_TIME = "HH:mm"
-val dateTimeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
-val timeFormat = SimpleDateFormat(PATTERN_DATE_TIME)
-
-fun Date.formatDateTime() : String  = dateTimeFormat.format(this)
-fun Date.formatTime() : String = timeFormat.format(this)
-fun Date.toLocalDateTime() = this.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()

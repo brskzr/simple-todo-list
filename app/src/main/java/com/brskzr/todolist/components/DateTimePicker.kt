@@ -94,7 +94,7 @@ class DatePickerFragment(val handler: OnPickHandler) : DialogFragment(), DatePic
     }
 
     override fun onDateSet(view: DatePicker, y: Int, m: Int, d: Int) {
-        val selected = LocalDateTime.of(y, m, d,
+        val selected = LocalDateTime.of(y, m + 1, d,
             localDateTime.hour,
             localDateTime.minute)
         handler.onPick(this, selected)
@@ -117,7 +117,7 @@ class TimePickerFragment(val handler: OnPickHandler) : DialogFragment(), TimePic
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, min: Int) {
 
         val selected = LocalDateTime.of(localDateTime.year,
-                                        localDateTime.month + 1,
+                                        localDateTime.month,
                                         localDateTime.dayOfMonth,
                                         hourOfDay,
                                         min)
